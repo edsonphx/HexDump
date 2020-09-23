@@ -3,23 +3,30 @@
 int main(void)
 {
     long bytes;
+    size_t bytesRead;
+    int limit;
+    unsigned char buffer[1024];
 
     FILE *inputFile;
-    inputFile = fopen("C:/inputFile.file","rb");
+    inputFile = fopen("file.file","rb");
 
     fseek(inputFile, 0, SEEK_END);
     bytes = ftell(inputFile);
     rewind(inputFile);
 
-    unsigned char buffer[bytes];
-
-    fread(&buffer,sizeof(buffer),1, inputFile);
-
     FILE *outputFile;
-    outputFile = fopen("C:/HexDump.txt", "w+");
+    outputFile = fopen("hexdump.txt", "w+");
 
-    for(int i = 0; i<sizeof(buffer); i++)
-        fprintf(outputFile,"%02x", buffer[i]);
+    if(sizeof buffer > bytes)
+        limit = bytes;
+    else
+        limit = sizeof(buffer);
+
+    while (0 < (bytesRead = fread(buffer, 1, sizeof(buffer), inputFile)))
+    {
+        for(int i = 0; i < limit; i++)
+            fprintf(outputFile,"%02x", buffer[i]);
+    }
 
     fclose(outputFile);
     fclose(inputFile);
