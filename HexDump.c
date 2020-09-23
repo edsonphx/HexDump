@@ -22,7 +22,7 @@ int main(void)
     else
         limit = sizeof(buffer);
 
-    while (0 < (bytesRead = fread(buffer, 1, sizeof(buffer), inputFile)))
+    while (0 < bytesRead = fread(buffer, 1, sizeof(buffer), inputFile))
     {
         for(int i = 0; i < limit; i++)
             fprintf(outputFile,"%02x", buffer[i]);
