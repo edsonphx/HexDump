@@ -3,9 +3,7 @@
 int main(void)
 {
     long bytes;
-    size_t bytesRead;
-    int limit;
-    unsigned char buffer[1024];
+    unsigned char buffer[8];
 
     FILE *inputFile;
     inputFile = fopen("file.file","rb");
@@ -16,15 +14,10 @@ int main(void)
 
     FILE *outputFile;
     outputFile = fopen("hexdump.txt", "w+");
-
-    if(sizeof buffer > bytes)
-        limit = bytes;
-    else
-        limit = sizeof(buffer);
-
-    while (0 < bytesRead = fread(buffer, 1, sizeof(buffer), inputFile))
+    
+    while(0 < fread(buffer, 1, sizeof(buffer), inputFile))
     {
-        for(int i = 0; i < limit; i++)
+        for(int i = 0; i < sizeof(buffer); i++)
             fprintf(outputFile,"%02x", buffer[i]);
     }
 
