@@ -2,15 +2,10 @@
 
 int main(void)
 {
-    long bytes;
     unsigned char buffer[8];
 
     FILE *inputFile;
     inputFile = fopen("file.file","rb");
-
-    fseek(inputFile, 0, SEEK_END);
-    bytes = ftell(inputFile);
-    rewind(inputFile);
 
     FILE *outputFile;
     outputFile = fopen("hexdump.txt", "w+");
